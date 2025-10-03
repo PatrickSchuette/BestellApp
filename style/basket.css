@@ -1,0 +1,151 @@
+.btn-shopping-cart {
+  position: relative;
+  background-image: url('../img/warenkorb.svg');
+  background-size: 48px 48px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 64px;
+  aspect-ratio: 1/1;
+  border: none;
+  cursor: pointer;
+  background-color: #fc6e09;
+  display: block;
+  border-radius: 8px;
+}
+
+#countBasket {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  min-width: 20px;
+  text-align: center;
+  z-index: 1;
+}
+
+.btn-cart-item-controls {
+  border: none;
+  background-color: #ff6b00;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.btn-remove-item {
+  width: 30px;
+  aspect-ratio: 1/1;
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url('../img/trash.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+
+}
+
+.resp-basket-des_closed {
+  transform: translateX(100%);
+}
+
+#basket {
+    position: sticky;
+  z-index: 1000;
+
+}
+
+#basket.open {
+  transform: translateX(0);
+  min-width: 150px;
+  width: 520px;
+}
+
+#basket h2{
+  padding: 8px 16px;
+  text-align: center;
+}
+
+.dishes.shift-left {
+  margin-right: 320px;
+  /* Platz für den Warenkorb */
+}
+
+#selected-Dish {
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.06);
+  padding: 32px;
+}
+
+.billing-summary {
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.06);
+  padding-top: 32px;
+}
+
+.billing-summary {
+  margin-top: 24px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: sans-serif;
+}
+
+.billing-summary table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.billing-summary td {
+  padding: 8px 0;
+  font-size: 1rem;
+}
+
+.billing-summary td:first-child {
+  font-weight: bold;
+}
+
+.billing-summary p {
+  margin: 0;
+  text-align: right;
+}
+
+.order-disabled {
+  pointer-events: none; /* verhindert Klicks */
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnOrder{
+    padding: 8px 16px;
+  width: 80%;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff6b00;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+@media (max-width: 767px) {
+
+  .btn-shopping-cart{
+    display: none;
+  }
+  
+}
