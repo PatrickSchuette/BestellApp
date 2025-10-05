@@ -21,48 +21,11 @@ let myDishes = [
 
 let basket = {};
 let displayBasket = "";
-let Zwischensumme = 0;
-let Lieferkosten = 0;
-let Gesamtpreis = 0;
+let subtotal = 0;
+let deliveryCost = 0;
+let totalPrice = 0;
 let basketComment = "";
 
-function renderDishes() {
-    const categories = ["pizza", "pasta", "getraenke"];
-    categories.forEach(cat => {
-        const section = document.getElementById(cat);
-        if (section) section.innerHTML =
-            `
-                
-                <img src="./img/${cat}.jpg" alt="${cat}" class="dish-category"> 
-            `;
-    });
-
-    // Gerichte einfügen
-    myDishes.forEach(dish => {
-        const section = document.getElementById(dish.Kategorie);
-        if (section) {
-            const dishElement = document.createElement("div");
-            dishElement.classList.add("dish");
-
-            dishElement.innerHTML = `
-        <div class="dish-card">
-            <div class="dish-info">
-                <h3>${dish.Name}</h3>
-                <p class="dish-description">${dish.description}</p>
-                <p class="dish-price">€${dish.Price.toFixed(2)}</p>
-            </div>
-            <div class="dish-action">
-                <button onclick=addBasket(${dish.ID}) aria-label="Gericht hinzufügen" class="btn-to-basket">+</button>
-            </div>
-        </div>
-      `;
-
-            section.appendChild(dishElement);
-        }
-    });
-
-    calculateBasket();
-}
 
 function addBasket(ID) {
     if (basket[ID]) {
@@ -72,7 +35,6 @@ function addBasket(ID) {
     }
 
     calculateBasket()
-    //console.table(basket);
 }
 
 function removeBasket(ID) {
@@ -84,96 +46,25 @@ function removeBasket(ID) {
         }
     }
     calculateBasket()
-    //console.table(basket);
 }
 
 
 function deleteDish(ID) {
     delete basket[ID];
     calculateBasket()
-    //console.table(basket);
-}
-
-function renderBasket() {
-
-    let output = "";
-
-    if (Object.keys(basket).length === 0) {
-        output = "Warenkorb ist leer, bitte etwas auswählen"
-    } else {
-
-        for (let dishID in basket) {
-            let quantity = basket[dishID];
-            let dish = myDishes.find(d => d.ID == dishID);
-            if (dish) {
-                output += `
-                    ${dish.Name} <br>
-                    <button onclick="removeBasket(${dishID})" class="btn-cart-item-controls">-</button> 
-                    ${quantity} 
-                    <button onclick="addBasket(${dishID})" class="btn-cart-item-controls">+</button> 
-                    €${(dish.Price * quantity).toFixed(2)} 
-                    <button onclick="deleteDish(${dishID})" class="btn-remove-item"></button> <br>
-                `;
-            }
-        }
-    }
-
-    let btnOrderStatus = ""
-    if (Zwischensumme < 20) {
-        btnOrderStatus = "order-disabled";
-    }
-
-
-
-    displayBasket = `
-                <h2>Warenkorb</h2>
-
-            <div id="selected-Dish">
-            ${output}
-
-            ${basketComment}
-            </div>
-
-            <div id="basketComment"></div>
-            <div class="billing-summary">
-                <table>
-                    <tr>
-                        <td>Zwischensumme:</td>
-                        <td>
-                            € ${Zwischensumme.toFixed(2)}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Lieferkosten:</td>
-                        <td>
-                            € ${Lieferkosten}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Gesamtpreis:</td>
-                        <td>
-                            € ${Gesamtpreis.toFixed(2)}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <button class="btnOrder ${btnOrderStatus}" onclick="order()">bestellen</button>
-        
-    `
-
-    document.getElementById("basket").innerHTML = displayBasket;
-    document.getElementById("dialogBoxMobileBasket-content").innerHTML = displayBasket;
 }
 
 
 function countBasket() {
     let basketCount = 0;
-    const basketCommentRev = document.getElementById("countBasket");
+    const basketCommentRevDesktop = document.getElementById("countBasketDesktop");
+    const basketCommentRevMobile = document.getElementById("countBasketMobile");
 
     if (Object.keys(basket).length === 0) {
-        basketCommentRev.classList.add("displayNone");
-        basketCommentRev.innerHTML = "";
+        basketCommentRevDesktop.classList.add("displayNone");
+        basketCommentRevDesktop.innerHTML = "";
+        basketCommentRevMobile.classList.add("displayNone");
+        basketCommentRevMobile.innerHTML = "";
         return;
     }
 
@@ -185,39 +76,41 @@ function countBasket() {
         }
     }
 
-    basketCommentRev.classList.remove("displayNone");
-    basketCommentRev.innerHTML = basketCount;
+    basketCommentRevDesktop.classList.remove("displayNone");
+    basketCommentRevDesktop.innerHTML = basketCount;
+    basketCommentRevMobile.classList.remove("displayNone");
+    basketCommentRevMobile.innerHTML = basketCount;
 }
 
 
 function calculateBasket() {
-    Zwischensumme = 0;
+    subtotal = 0;
     if (Object.keys(basket).length != 0) {
         for (let dishID in basket) {
             let quantity = basket[dishID];
             let dish = myDishes.find(d => d.ID == dishID);
             if (dish) {
-                Zwischensumme += dish.Price * quantity;;
+                subtotal += dish.Price * quantity;;
             }
         }
     }
 
-    if (Zwischensumme < 50) {
-        Lieferkosten = 3.5;
+    if (subtotal < 50) {
+        deliveryCost = 3.5;
     } else {
-        Lieferkosten = 0;
+        deliveryCost = 0;
     }
-    Gesamtpreis = (Zwischensumme + Lieferkosten);
+    totalPrice = (subtotal + deliveryCost);
 
-    if (Zwischensumme < 20) {
+    if (subtotal < 20) {
         basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
         if (Object.keys(basket).length === 0) { basketComment = ""; }
     } else {
         basketComment = "";
     }
 
-    if (Zwischensumme >= 20 && Zwischensumme < 50) {
-        basketComment = "<br> noch €" + (50 - Zwischensumme).toFixed(2) + " für kostenlose Lieferung";
+    if (subtotal >= 20 && subtotal < 50) {
+        basketComment = "<br> noch €" + (50 - subtotal).toFixed(2) + " für kostenlose Lieferung";
     }
 
     countBasket();
@@ -231,9 +124,11 @@ function StartPage() {
 function renderCartDesktop() {
     const basketRev = document.getElementById("basket");
     const dishesRev = document.querySelector(".dishes");
+    const mainRev = document.getElementById("main");
     basketRev.classList.toggle("open");
     dishesRev.classList.toggle("shift-left");
-    //document.getElementById("basket").classList.toggle("displayNone");
+    mainRev.classList.toggle("main-basket");
+    document.getElementById("basket").classList.toggle("displayNone");
     renderBasket();
 }
 
@@ -245,30 +140,20 @@ function order() {
     dialog.showModal();
     basket = {};
     calculateBasket();
+    closeDialogBasket();
 
 }
 
-function closeDialog() {
-    const dialogs = document.querySelectorAll("dialog");
-    dialogs.forEach(dialog => {
-        if (dialog.open) {
-            dialog.close();
-        }
-    });
+function closeDialogBasket() {
+    const dialog = document.getElementById("dialogBoxMobileBasket");
+    dialog.close();
 }
 
-document.getElementById("dialogBoxOrder").addEventListener("click", function (event) {
-    const rect = this.getBoundingClientRect();
-    const isInDialog =
-        event.clientX >= rect.left &&
-        event.clientX <= rect.right &&
-        event.clientY >= rect.top &&
-        event.clientY <= rect.bottom;
+function closeDialogOrder() {
+    const dialog = document.getElementById("dialogBoxOrder");
+    dialog.close();
+}
 
-    if (!isInDialog) {
-        closeDialog();
-    }
-});
 
 function orderMobile() {
 

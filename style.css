@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: visible;
   font-family: 'Lato', sans-serif;
   /* overflow: hidden; */
 }
@@ -39,7 +39,7 @@ footer {
   height: calc(var(--HeightHeader) - 16px);
 }
 
-#main {
+.main-basket {
   display: flex;
   align-items: flex-start;
 }
@@ -50,6 +50,7 @@ footer {
 }
 
 .hero {
+  width: 100%;
   position: relative;
   height: 400px;
   background-image: url(./img/hero.jpg);
@@ -81,8 +82,15 @@ footer {
 .dishes {
   margin: 0 auto;
   flex: 1;
-  min-width: 250px;
-  max-width: 850px;
+  width: 100%;
+ 
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  overflow: hidden;
 }
 
 body {
@@ -121,17 +129,18 @@ dialog {
 }
 
 .btn-MobileBasket {
-  padding: 8px 16px;
-  width: 80%;
-  border-radius: 8px;
+  position: relative;
+  background-image: url('./img/warenkorb.svg');
+  background-size: 48px 48px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 64px;
+  aspect-ratio: 1/1;
   border: none;
-  background-color: #ff6b00;
-  color: #fff;
   cursor: pointer;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fc6e09;
   display: none;
+  border-radius: 8px;
 }
 
 @font-face {
@@ -152,9 +161,15 @@ dialog {
 
   dialog {
     top: 5%;
-    left: 0;
+    left: 2.5%;
     width: 95%;
   }
   
 }
 
+@media (min-width: 1200px) {
+  .hero,
+  .dishes {
+    max-width: 1200px;
+  }
+}

@@ -13,7 +13,7 @@
   border-radius: 8px;
 }
 
-#countBasket {
+.countBasket {
   position: absolute;
   top: 4px;
   right: 4px;
@@ -29,6 +29,9 @@
 }
 
 .btn-cart-item-controls {
+    display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   background-color: #ff6b00;
   border-radius: 50%;
@@ -38,6 +41,7 @@
   width: 30px;
   height: 30px;
   cursor: pointer;
+  padding: 0;
 }
 
 .btn-remove-item {
@@ -57,12 +61,21 @@
 }
 
 #basket {
-    position: sticky;
+  display: none; /* initial versteckt */
+  position: sticky;
+  top: var(--HeightHeader);
   z-index: 1000;
+  width: 520px;
+  min-width: 150px;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 
 }
 
 #basket.open {
+  display: block;
   transform: translateX(0);
   min-width: 150px;
   width: 520px;
@@ -82,6 +95,19 @@
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.06);
   padding: 32px;
+}
+
+.basket-dish{
+  font-weight: bold;
+  flex: 1;
+}
+
+.basket-dishRow{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .billing-summary {

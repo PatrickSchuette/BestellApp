@@ -18,15 +18,14 @@
 
 .dish-action {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 16px;
+  right: 16px;
 }
 
 .btn-to-basket {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  font-family: "Baloo 2", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
   font-size: 24px;
   width: 40px;
@@ -34,15 +33,17 @@
   border: 2px solid #ff6b00;
   border-radius: 50%;
   color: #ff6b00;
+  background-color: #f5f2ef3b;
   cursor: pointer;
-  flex-shrink: 0;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+  padding: 0;
 }
 
 .dish-category img{
   height: var(--dish-category-height);
   width: 100%;
   object-fit: cover;
+  overflow: clip;
 }
 
 .btn-Cat {

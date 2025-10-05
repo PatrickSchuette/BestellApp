@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./style/basket.css">
     <link rel="stylesheet" href="./style/dishes.css">
+    <script src="./script/template.js"></script>
     <script src="./script.js" defer></script>
+
 </head>
 
 
@@ -24,64 +26,67 @@
             <img src="./img/Logo.png" alt="BestellApp Logo" class="imgLogo">
         </div>
         <div>
-            <button onclick="renderCartDesktop()" id="btn-shopping-cart" class="btn-shopping-cart" type="button" aria-label="Warenkorb öffnen">
-                <div id="countBasket" class="displayNone"></div>
+            <button onclick="renderCartDesktop()" id="btn-shopping-cart" class="btn-shopping-cart" type="button"
+                aria-label="Warenkorb öffnen">
+                <div id="countBasketDesktop" class="countBasket displayNone"></div>
             </button>
+
+            <button onclick="orderMobile()" id="btn-shopping-cart-mobile" class="btn-MobileBasket" type="button"
+                aria-label="Warenkorb öffnen">
+                <div id="countBasketMobile" class="countBasket displayNone"></div>
+            </button>
+
         </div>
     </header>
 
-    <section class="hero">
-
-        <h1>Italian Classic Home</h1>
-
-        <div class="restaurant-info">
-            <span>Bewertung 4,7 von 5 ⭐</span> <br>
-            <span>Liefergebühr 3,50€*</span> <br>
-            <span>* kostenlose Lieferung ab €50,- Bestellwert</span>
-        </div>
-
-    </section>
-
     <section id="main">
+        <div class="main-content">
+            <div class="hero">
 
+                <h1>Italian Classic Home</h1>
 
-        <div class="dishes">
-        <nav>
-            <a href="#pizza" class="btn-Cat">Pizza</a>
-            <a href="#pasta" class="btn-Cat">Pasta</a>
-            <a href="#getraenke" class="btn-Cat">Getränke</a>
-        </nav>
+                <div class="restaurant-info">
+                    <span>Bewertung 4,7 von 5 ⭐</span> <br>
+                    <span>Liefergebühr 3,50€*</span> <br>
+                    <span>* kostenlose Lieferung ab €50,- Bestellwert</span>
+                </div>
 
-            <section id="pizza" class="dish-category"></section>
-            <section id="pasta" class="dish-category"></section>
-            <section id="getraenke" class="dish-category"></section>
+            </div>
+
+            <div class="dishes">
+                <nav>
+                    <a href="#pizza" class="btn-Cat">Pizza</a>
+                    <a href="#pasta" class="btn-Cat">Pasta</a>
+                    <a href="#getraenke" class="btn-Cat">Getränke</a>
+                </nav>
+
+                <section id="pizza" class="dish-category"></section>
+                <section id="pasta" class="dish-category"></section>
+                <section id="getraenke" class="dish-category"></section>
+            </div>
+
         </div>
 
-
-
-        <div id="basket" class="resp-basket-des_closed"> </div>
+        <div id="basket"> </div>
 
 
     </section>
 
     <dialog id="dialogBoxOrder" class="dialogBox">
         <div class="dialog-header">
-            <button onclick="closeDialog()" class="close-btn">×</button>
+            <button onclick="closeDialogOrder()" class="close-btn">×</button>
         </div>
         <main id="dialogBoxOrder-content"></main>
     </dialog>
 
     <dialog id="dialogBoxMobileBasket">
         <div class="dialog-header">
-            <button onclick="closeDialog()" class="close-btn">×</button>
+            <button onclick="closeDialogBasket()" class="close-btn">×</button>
         </div>
         <main id="dialogBoxMobileBasket-content"></main>
     </dialog>
 
 
-    <footer id="footer">
-        <button onclick="orderMobile()" class="btn-MobileBasket">Warenkorb</button>
-    </footer>
 </body>
 
 </html>

@@ -4,5 +4,13 @@
   --HeightHeader: 80px;
   --HeightFooter: 64px;
   --AbstandDialogbox: 128px;
-  --dish-category-height: 128px;
+  --dish-category-height: 256px;
+}
+
+@media (max-width: 767px) {
+
+  :root{
+    --dish-category-height: 128px;
+  }
+  
 }
