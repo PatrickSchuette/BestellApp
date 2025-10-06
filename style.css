@@ -66,6 +66,11 @@ footer {
 .hero h1 {
   align-self: center;
   transform: translateY(-33%);
+  font-size: 32px;
+}
+
+h2{
+  font-size: 21px;
 }
 
 .restaurant-info {

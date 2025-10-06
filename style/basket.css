@@ -38,7 +38,7 @@
   color: white;
   font-weight: bold;
   font-size: 24px;
-  width: 30px;
+  aspect-ratio: 1/1;
   height: 30px;
   cursor: pointer;
   padding: 0;
@@ -97,6 +97,9 @@
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.06);
   padding: 32px;
+    max-height: 60vh; 
+  overflow-y: auto;
+  padding-right: 8px; 
 }
 
 .basket-dish {
@@ -136,7 +139,7 @@
 
 .billing-summary td {
   padding: 8px 0;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .billing-summary td:first-child {
@@ -167,8 +170,6 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
 }
-
-
 
 @media (max-width: 767px) {
 

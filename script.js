@@ -79,6 +79,28 @@ function countBasket() {
     basketCommentRevMobile.innerHTML = basketCount;
 }
 
+function updateBasketState() {
+    subtotal = 0;
+    deliveryCost = 0;
+    totalPrice = 0;
+    basketComment = "";
+
+    for (let dishID in basket) {
+        const quantity = basket[dishID];
+        const dish = myDishes.find(d => d.ID == dishID);
+        if (dish) subtotal += dish.Price * quantity;
+    }
+
+    deliveryCost = subtotal < 50 ? 3.50 : 0;
+    totalPrice = subtotal + deliveryCost;
+
+    if (subtotal < 20 && Object.keys(basket).length > 0) {
+        basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
+    } else if (subtotal >= 20 && subtotal < 50) {
+        basketComment = "<br> noch €" + (50 - subtotal).toFixed(2) + " für kostenlose Lieferung";
+    }
+}
+
 function calculateBasket() {
     subtotal = 0;
     if (Object.keys(basket).length != 0) {
@@ -91,30 +113,30 @@ function calculateBasket() {
         }
     }
 
-    if (subtotal < 50) {
-        deliveryCost = 3.50;
-    } else {
-        deliveryCost = 0;
-    }
+    if (subtotal < 50) { deliveryCost = 3.50; }
+    else { deliveryCost = 0; }
     totalPrice = (subtotal + deliveryCost);
 
     if (subtotal < 20) {
         basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
         if (Object.keys(basket).length === 0) { basketComment = ""; }
-    } else {
-        basketComment = "";
     }
+    else { basketComment = ""; }
 
     if (subtotal >= 20 && subtotal < 50) {
         basketComment = "<br> noch €" + (50 - subtotal).toFixed(2) + " für kostenlose Lieferung";
     }
-
-    countBasket();
-    renderBasket();
+    updateBasket()
 }
 
 function StartPage() {
     renderDishes();
+}
+
+function updateBasket() {
+    updateBasketState();
+    countBasket();
+    renderBasket();
 }
 
 function renderCartDesktop() {
@@ -135,7 +157,7 @@ function order() {
     content.innerHTML = `<h2>Bestellung aufgegeben</h2> 
         <div> <br>Die aktuelle Lieferzeit beträgt ca. 35 Minuten <br> <br>Wir wünschen einen guten Appetit </div>`;
     dialog.showModal();
-    
+
     basket = {};
     calculateBasket();
     closeDialogBasket();
@@ -157,9 +179,9 @@ function closeDialogOrder() {
 }
 
 function orderMobile() {
-  const dialog = document.getElementById("dialogBoxMobileBasket");
-  
-  calculateBasket();
-  dialog.showModal();
-  document.body.classList.add('modal-open');
+    const dialog = document.getElementById("dialogBoxMobileBasket");
+
+    calculateBasket();
+    dialog.showModal();
+    document.body.classList.add('modal-open');
 }

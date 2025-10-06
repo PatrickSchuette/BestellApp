@@ -1,10 +1,11 @@
 .dish-card {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
   gap: 16px;
   padding: 16px 32px;
+  flex-wrap: wrap;
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.06);
@@ -16,9 +17,7 @@
 }
 
 .dish-action {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+margin-left: auto;
 }
 
 .btn-to-basket {
@@ -26,7 +25,7 @@
   font-weight: bold;
   font-size: 24px;
   width: 40px;
-  height: 40px;
+  aspect-ratio: 1/1;
   border: 2px solid #ff6b00;
   border-radius: 50%;
   color: #ff6b00;
