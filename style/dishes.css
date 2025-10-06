@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-
   position: relative;
   gap: 16px;
   padding: 16px 32px;
@@ -23,9 +22,7 @@
 }
 
 .btn-to-basket {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   font-weight: bold;
   font-size: 24px;
   width: 40px;

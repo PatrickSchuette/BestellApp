@@ -29,9 +29,9 @@
 }
 
 .btn-cart-item-controls {
-    display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1;
   border: none;
   background-color: #ff6b00;
   border-radius: 50%;
@@ -61,34 +61,36 @@
 }
 
 #basket {
-  display: none; /* initial versteckt */
+  display: none;
   position: sticky;
   top: var(--HeightHeader);
-  z-index: 1000;
+  z-index: 100;
   width: 520px;
   min-width: 150px;
-  height: 100vh;
+  max-height: calc(100vh - 5px - var(--HeightHeader));
   overflow-y: auto;
   background-color: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
 }
 
 #basket.open {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   transform: translateX(0);
   min-width: 150px;
   width: 520px;
 }
 
-#basket h2{
+#basket h2 {
   padding: 8px 16px;
   text-align: center;
 }
 
 .dishes.shift-left {
   margin-right: 320px;
-  /* Platz für den Warenkorb */
 }
 
 #selected-Dish {
@@ -97,12 +99,12 @@
   padding: 32px;
 }
 
-.basket-dish{
+.basket-dish {
   font-weight: bold;
   flex: 1;
 }
 
-.basket-dishRow{
+.basket-dishRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -147,13 +149,13 @@
 }
 
 .order-disabled {
-  pointer-events: none; /* verhindert Klicks */
+  pointer-events: none;
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.btnOrder{
-    padding: 8px 16px;
+.btnOrder {
+  padding: 8px 16px;
   width: 80%;
   border-radius: 8px;
   border: none;
@@ -170,8 +172,8 @@
 
 @media (max-width: 767px) {
 
-  .btn-shopping-cart{
+  .btn-shopping-cart {
     display: none;
   }
-  
+
 }

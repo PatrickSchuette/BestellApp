@@ -1,9 +1,9 @@
 :root {
-  --AbstandRand: 32px;
-  --AbstandContainer: 128px;
+  --distanceEdge: 32px;
+  --distanceContainer: 128px;
   --HeightHeader: 80px;
   --HeightFooter: 64px;
-  --AbstandDialogbox: 128px;
+  --distanceDialogBox: 128px;
   --dish-category-height: 256px;
 }
 

@@ -26,7 +26,6 @@ let deliveryCost = 0;
 let totalPrice = 0;
 let basketComment = "";
 
-
 function addBasket(ID) {
     if (basket[ID]) {
         basket[ID] += 1;
@@ -48,12 +47,10 @@ function removeBasket(ID) {
     calculateBasket()
 }
 
-
 function deleteDish(ID) {
     delete basket[ID];
     calculateBasket()
 }
-
 
 function countBasket() {
     let basketCount = 0;
@@ -82,7 +79,6 @@ function countBasket() {
     basketCommentRevMobile.innerHTML = basketCount;
 }
 
-
 function calculateBasket() {
     subtotal = 0;
     if (Object.keys(basket).length != 0) {
@@ -96,7 +92,7 @@ function calculateBasket() {
     }
 
     if (subtotal < 50) {
-        deliveryCost = 3.5;
+        deliveryCost = 3.50;
     } else {
         deliveryCost = 0;
     }
@@ -136,29 +132,34 @@ function order() {
     const dialog = document.getElementById("dialogBoxOrder");
     const content = document.getElementById("dialogBoxOrder-content");
 
-    content.innerHTML = "<h2>Bestellung aufgegeben</h2>";
+    content.innerHTML = `<h2>Bestellung aufgegeben</h2> 
+        <div> <br>Die aktuelle Lieferzeit beträgt ca. 35 Minuten <br> <br>Wir wünschen einen guten Appetit </div>`;
     dialog.showModal();
+    
     basket = {};
     calculateBasket();
     closeDialogBasket();
-
+    document.body.classList.add('modal-open');
 }
 
 function closeDialogBasket() {
     const dialog = document.getElementById("dialogBoxMobileBasket");
     dialog.close();
+
+    document.body.classList.remove('modal-open');
 }
 
 function closeDialogOrder() {
     const dialog = document.getElementById("dialogBoxOrder");
     dialog.close();
+
+    document.body.classList.remove('modal-open');
 }
 
-
 function orderMobile() {
-
-    const dialog = document.getElementById("dialogBoxMobileBasket");
-    calculateBasket();
-    dialog.showModal();
-
+  const dialog = document.getElementById("dialogBoxMobileBasket");
+  
+  calculateBasket();
+  dialog.showModal();
+  document.body.classList.add('modal-open');
 }

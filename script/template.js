@@ -43,11 +43,11 @@ function renderBasket() {
                 output += `
                     <div class="basket-dish">${dish.Name} </div>
                     <div class="basket-dishRow">
-                        <button onclick="removeBasket(${dishID})" class="btn-cart-item-controls">-</button> 
+                        <button onclick="removeBasket(${dishID})" class="btn-cart-item-controls" aria-label="Produkt um 1 verringern">−</button> 
                         ${quantity} 
-                        <button onclick="addBasket(${dishID})" class="btn-cart-item-controls">+</button> 
+                        <button onclick="addBasket(${dishID})" class="btn-cart-item-controls" aria-label="Produkt um 1 erhöhen">+</button> 
                         €${(dish.Price * quantity).toFixed(2)} 
-                        <button onclick="deleteDish(${dishID})" class="btn-remove-item"></button> <br>
+                        <button onclick="deleteDish(${dishID})" class="btn-remove-item" aria-label="Produkt entfernen"></button> <br>
                     </div>`;
             }
         }
@@ -76,7 +76,7 @@ function renderBasket() {
                     <tr>
                         <td>Lieferkosten:</td>
                         <td>
-                            € ${deliveryCost}
+                            € ${deliveryCost.toFixed(2)}
                         </td>
                     </tr>
 
