@@ -22,7 +22,7 @@
 <body onload="StartPage()">
 
     <header id="header">
-        <div>
+        <div class="maxContent">
             <img src="./img/Logo.png" alt="BestellApp Logo" class="imgLogo">
         </div>
         <div>
@@ -40,36 +40,37 @@
     </header>
 
     <section id="main">
-        <div class="main-content">
-            <div class="hero">
+        <div class="main-inner">
+            <div class="main-content maxContent">
+                <div class="hero">
 
-                <h1>Italian Classic Home</h1>
+                    <h1>Italian Classic Home</h1>
 
-                <div class="restaurant-info">
-                    <span>Bewertung 4,7 von 5 ⭐</span> <br>
-                    <span>Liefergebühr 3,50€*</span> <br>
-                    <span>* kostenlose Lieferung ab €50,- Bestellwert</span>
+                    <div class="restaurant-info">
+                        <span>Bewertung 4,7 von 5 ⭐</span> <br>
+                        <span>Liefergebühr 3,50€*</span> <br>
+                        <span>* kostenlose Lieferung ab €50,- Bestellwert</span>
+                    </div>
+
+                </div>
+
+                <div class="dishes">
+                    <nav>
+                        <a href="#pizza" class="btn-Cat">Pizza</a>
+                        <a href="#pasta" class="btn-Cat">Pasta</a>
+                        <a href="#getraenke" class="btn-Cat">Getränke</a>
+                    </nav>
+
+                    <section id="pizza" class="dish-category"></section>
+                    <section id="pasta" class="dish-category"></section>
+                    <section id="getraenke" class="dish-category"></section>
                 </div>
 
             </div>
 
-            <div class="dishes">
-                <nav>
-                    <a href="#pizza" class="btn-Cat">Pizza</a>
-                    <a href="#pasta" class="btn-Cat">Pasta</a>
-                    <a href="#getraenke" class="btn-Cat">Getränke</a>
-                </nav>
-
-                <section id="pizza" class="dish-category"></section>
-                <section id="pasta" class="dish-category"></section>
-                <section id="getraenke" class="dish-category"></section>
-            </div>
+            <div id="basket" class="displayNone"> </div>
 
         </div>
-
-        <div id="basket"> </div>
-
-
     </section>
 
     <dialog id="dialogBoxOrder" class="dialogBox">

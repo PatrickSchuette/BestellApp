@@ -19,12 +19,27 @@ let myDishes = [
     { "ID": 13, "Name": "Orangensaft 0,3L", "Price": 2.49, "description": "Frisch gepresst", "Kategorie": "getraenke" }
 ];
 
+
 let basket = {};
-let displayBasket = "";
-let subtotal = 0;
-let deliveryCost = 0;
-let totalPrice = 0;
-let basketComment = "";
+let basketValue = {
+    displayBasket: "",
+    subtotal: 0,
+    deliveryCost: 0,
+    totalPrice: 0,
+    basketComment: ""
+};
+
+let elementRev = {
+    basketCommentDesktop: document.getElementById("countBasketDesktop"),
+    basketCommentMobile: document.getElementById("countBasketMobile"),
+    basket: document.getElementById("basket"),
+    dishes: document.querySelector(".dishes"),
+    main: document.getElementById("main"),
+    dbOrder: document.getElementById("dialogBoxOrder"),
+    dbOrderContent: document.getElementById("dialogBoxOrder-content"),
+    dbBasketMobile: document.getElementById("dialogBoxMobileBasket")
+
+};
 
 function addBasket(ID) {
     if (basket[ID]) {
@@ -53,17 +68,24 @@ function deleteDish(ID) {
 }
 
 function countBasket() {
-    let basketCount = 0;
-    const basketCommentRevDesktop = document.getElementById("countBasketDesktop");
-    const basketCommentRevMobile = document.getElementById("countBasketMobile");
-
     if (Object.keys(basket).length === 0) {
-        basketCommentRevDesktop.classList.add("displayNone");
-        basketCommentRevDesktop.innerHTML = "";
-        basketCommentRevMobile.classList.add("displayNone");
-        basketCommentRevMobile.innerHTML = "";
-        return;
+        countBasketHide();
+    } else {
+        countBasketShow();
     }
+}
+
+function countBasketHide() {
+    let basketCount = 0;
+
+    elementRev.basketCommentDesktop.classList.add("displayNone");
+    elementRev.basketCommentDesktop.innerHTML = "";
+    elementRev.basketCommentMobile.classList.add("displayNone");
+    elementRev.basketCommentMobile.innerHTML = "";
+}
+
+function countBasketShow() {
+    let basketCount = 0;
 
     for (let dishID in basket) {
         const quantity = basket[dishID];
@@ -73,60 +95,107 @@ function countBasket() {
         }
     }
 
-    basketCommentRevDesktop.classList.remove("displayNone");
-    basketCommentRevDesktop.innerHTML = basketCount;
-    basketCommentRevMobile.classList.remove("displayNone");
-    basketCommentRevMobile.innerHTML = basketCount;
+    elementRev.basketCommentDesktop.classList.remove("displayNone");
+    elementRev.basketCommentDesktop.innerHTML = basketCount;
+    elementRev.basketCommentMobile.classList.remove("displayNone");
+    elementRev.basketCommentMobile.innerHTML = basketCount;
+}
+
+function resetBasketCalculation() {
+    basketValue.subtotal = 0;
+    basketValue.deliveryCost = 0;
+    basketValue.totalPrice = 0;
+    basketValue.basketComment = "";
 }
 
 function updateBasketState() {
-    subtotal = 0;
-    deliveryCost = 0;
-    totalPrice = 0;
-    basketComment = "";
+    resetBasketCalculation();
 
     for (let dishID in basket) {
         const quantity = basket[dishID];
         const dish = myDishes.find(d => d.ID == dishID);
-        if (dish) subtotal += dish.Price * quantity;
+        if (dish) basketValue.subtotal += dish.Price * quantity;
     }
 
-    deliveryCost = subtotal < 50 ? 3.50 : 0;
-    totalPrice = subtotal + deliveryCost;
+    basketValue.deliveryCost = basketValue.subtotal < 50 ? 3.50 : 0;
+    basketValue.totalPrice = basketValue.subtotal + basketValue.deliveryCost;
 
-    if (subtotal < 20 && Object.keys(basket).length > 0) {
-        basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
-    } else if (subtotal >= 20 && subtotal < 50) {
-        basketComment = "<br> noch €" + (50 - subtotal).toFixed(2) + " für kostenlose Lieferung";
+    if (basketValue.subtotal < 20 && Object.keys(basket).length > 0) {
+        basketValue.basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
+    } else if (basketValue.subtotal >= 20 && basketValue.subtotal < 50) {
+        basketValue.basketComment = "<br> noch €" + (50 - basketValue.subtotal).toFixed(2) + " für kostenlose Lieferung";
     }
 }
 
 function calculateBasket() {
-    subtotal = 0;
+    basketValue.subtotal = 0;
     if (Object.keys(basket).length != 0) {
         for (let dishID in basket) {
             let quantity = basket[dishID];
             let dish = myDishes.find(d => d.ID == dishID);
             if (dish) {
-                subtotal += dish.Price * quantity;;
+                basketValue.subtotal += dish.Price * quantity;;
             }
         }
     }
 
-    if (subtotal < 50) { deliveryCost = 3.50; }
-    else { deliveryCost = 0; }
-    totalPrice = (subtotal + deliveryCost);
-
-    if (subtotal < 20) {
-        basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
-        if (Object.keys(basket).length === 0) { basketComment = ""; }
-    }
-    else { basketComment = ""; }
-
-    if (subtotal >= 20 && subtotal < 50) {
-        basketComment = "<br> noch €" + (50 - subtotal).toFixed(2) + " für kostenlose Lieferung";
-    }
+    calculateBasketInfo()
     updateBasket()
+}
+
+function calculateBasketInfo() {
+    if (basketValue.subtotal < 50) { basketValue.deliveryCost = 3.50; }
+    else { basketValue.deliveryCost = 0; }
+    basketValue.totalPrice = (basketValue.subtotal + basketValue.deliveryCost);
+
+    if (basketValue.subtotal < 20) {
+        basketValue.basketComment = "<br> Mindestbestellwert von 20 Euro nicht erreicht";
+        if (Object.keys(basket).length === 0) { basketValue.basketComment = ""; }
+    }
+    else { basketValue.basketComment = ""; }
+
+    if (basketValue.subtotal >= 20 && basketValue.subtotal < 50) {
+        basketValue.basketComment = "<br> noch €" + (50 - basketValue.subtotal).toFixed(2) + " für kostenlose Lieferung";
+    }
+}
+
+function renderDishes() {
+    document.getElementById("pizza").innerHTML = `<h2>Pizza</h2> <img src="./img/pizza.jpg" alt="Pizza" class="dish-category">`;
+    document.getElementById("pasta").innerHTML = `<h2>Pasta</h2> <img src="./img/pasta.jpg" alt="PAsta" class="dish-category">`;
+    document.getElementById("getraenke").innerHTML = `<h2>Getränke</h2> <img src="./img/getraenke.jpg" alt="Getränke" class="dish-category">`;
+
+    myDishes.forEach(dish => {
+        const section = document.getElementById(dish.Kategorie);
+        if (section) {
+            const dishElement = document.createElement("div");
+            dishElement.classList.add("dish");
+            dishElement.innerHTML = renderDishesHTML(dish);
+            section.appendChild(dishElement);
+        }
+    });
+}
+
+function renderBasket() {
+    let output = "";
+
+    if (Object.keys(basket).length === 0) {
+        output = "Warenkorb ist leer, bitte etwas auswählen";
+    } else {
+        for (let dishID in basket) {
+            const quantity = basket[dishID];
+            const dish = myDishes.find(d => d.ID == dishID);
+            if (dish) {
+                output += renderBasketSelectionHTML(dish, dishID, quantity);
+            }
+        }
+    }
+
+    const btnOrderStatus = basketValue.subtotal < 20 ? "order-disabled" : "";
+
+    basketValue.displayBasket = renderBasketPriceHTML(output, btnOrderStatus);
+
+    document.getElementById("basket").innerHTML = basketValue.displayBasket;
+    document.getElementById("dialogBoxMobileBasket-content").innerHTML = basketValue.displayBasket;
 }
 
 function StartPage() {
@@ -140,23 +209,18 @@ function updateBasket() {
 }
 
 function renderCartDesktop() {
-    const basketRev = document.getElementById("basket");
-    const dishesRev = document.querySelector(".dishes");
-    const mainRev = document.getElementById("main");
-    basketRev.classList.toggle("open");
-    dishesRev.classList.toggle("shift-left");
-    mainRev.classList.toggle("main-basket");
-    document.getElementById("basket").classList.toggle("displayNone");
+
+    elementRev.basket.classList.toggle("open");
+    elementRev.dishes.classList.toggle("shift-left");
+    elementRev.main.classList.toggle("main-basket");
+    elementRev.basket.classList.toggle("displayNone");
     renderBasket();
 }
 
 function order() {
-    const dialog = document.getElementById("dialogBoxOrder");
-    const content = document.getElementById("dialogBoxOrder-content");
-
-    content.innerHTML = `<h2>Bestellung aufgegeben</h2> 
+    elementRev.dbOrderContent.innerHTML = `<h2>Bestellung aufgegeben</h2> 
         <div> <br>Die aktuelle Lieferzeit beträgt ca. 35 Minuten <br> <br>Wir wünschen einen guten Appetit </div>`;
-    dialog.showModal();
+    elementRev.dbOrder.showModal();
 
     basket = {};
     calculateBasket();
@@ -165,8 +229,7 @@ function order() {
 }
 
 function closeDialogBasket() {
-    const dialog = document.getElementById("dialogBoxMobileBasket");
-    dialog.close();
+    elementRev.dbBasketMobile.close();
 
     document.body.classList.remove('modal-open');
 }
@@ -179,9 +242,7 @@ function closeDialogOrder() {
 }
 
 function orderMobile() {
-    const dialog = document.getElementById("dialogBoxMobileBasket");
-
     calculateBasket();
-    dialog.showModal();
+    elementRev.dbBasketMobile.showModal();
     document.body.classList.add('modal-open');
 }

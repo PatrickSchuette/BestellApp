@@ -44,6 +44,13 @@ footer {
   align-items: flex-start;
 }
 
+.main-left {
+  flex: 1;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
 
 .displayNone {
   display: none;
@@ -69,7 +76,7 @@ footer {
   font-size: 32px;
 }
 
-h2{
+h2 {
   font-size: 21px;
 }
 
@@ -86,7 +93,7 @@ h2{
   margin: 0 auto;
   flex: 1;
   width: 100%;
- 
+
 }
 
 .main-content {
@@ -94,6 +101,22 @@ h2{
   margin: 0 auto;
   padding: 0 16px;
   overflow: hidden;
+  flex: 1;
+}
+
+#main {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.main-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 75%;
 }
 
 body {
@@ -146,10 +169,14 @@ dialog {
   border-radius: 8px;
 }
 
-body.modal-open{
-    overflow: hidden;
+body.modal-open {
+  overflow: hidden;
   position: fixed;
   width: 100%;
+}
+
+.maxContent {
+  max-width: var(--maxContent);
 }
 
 @font-face {
@@ -164,7 +191,7 @@ body.modal-open{
     display: block;
   }
 
-  .btn-shopping-cart{
+  .btn-shopping-cart {
     display: none;
   }
 
@@ -173,10 +200,11 @@ body.modal-open{
     left: 2.5%;
     width: 95%;
   }
-  
+
 }
 
 @media (min-width: 1200px) {
+
   .hero,
   .dishes {
     max-width: 1200px;
